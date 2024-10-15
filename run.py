@@ -105,10 +105,47 @@ def edge_betweenness(nodes, edges, paths):
 	return B
 
 def GN(nodes,edgelist,adjlist):
-	partitions = [[nodes]]
+# 1. Assign all nodes to a single cluster. (done already)
+# 2. Calculate the edge betweenness of all edges in the network.
+# using edge_betweenness(nodes, edges, paths) from Task B
 
-	# WRITE CODE HERE
-	
+# 3. Remove the edge with the highest betweenness
+
+# utilize: uvths.remove_from_edgelist(['a','b'],edgelist) and
+# utilsxemovejrom ad'llist(['a‘,'b'],ggjlj§t) function template
+
+# 4. If removing an edge divided a group, make a new partition.
+
+	# 1 and 2 
+	partitions = [[nodes]]
+	B = edge_betweenness(nodes, edgelist, adjlist)
+
+	# While node < edge ? we need to repeat until we partition everything
+
+	# 3. Remove the edge with the highest betweenness (Need to turn into nested function)
+	max_edge = 0
+	max_betweenness = 0
+	for key, value in B.items():
+		if isinstance(value, (int, float)) and (value > max_value):
+			max_edge = key
+			max_betweenness = value
+
+	s, t = max_edge.split()	# split the maximum edge entry [s,t] into nodes s, t
+
+	utils.remove_from_edgelist([s,t],edgelist)
+	utils.remove_from_edgelist([t,s],edgelist)
+	utils.remove_from_adjlist([s,t],adjlist)
+	utils.remove_from_adjlist([t,s],adjlist)
+
+	# so we currently find and remove the current highest value edge pair
+	# then we have to refer to partitions list if this will cause a split
+	# once that works, add everything to a nested function to partition until set number of groups or until all nodes are split
+	# 
+
+	# this part confused me, 
+	# partitions[len(partitions)]  # previous partition
+	# utils.split_partition()		# split new partitions
+
 	return partitions
 
 # keep this at the bottom of the file.
